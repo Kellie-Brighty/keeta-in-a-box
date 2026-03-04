@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
+import { runDockerCompose } from './utils/docker';
 
 const program = new Command();
 
@@ -14,8 +15,13 @@ program
   .description('Start the local Keeta Network node and fund the genesis accounts')
   .action(async () => {
     console.log('🔄 Starting Keeta-in-a-Box local devnet...');
-    // TODO: Implement docker-compose up logic
-    console.log('✅ Keeta devnet is running on localhost!');
+    try {
+      await runDockerCompose(['up', '-d']);
+      console.log('✅ Keeta devnet is running on localhost:8443!');
+    } catch (err) {
+      console.error('❌ Failed to start Keeta devnet:', err);
+      process.exit(1);
+    }
   });
 
 program
@@ -23,17 +29,13 @@ program
   .description('Stop the local Keeta Network node and clear data')
   .action(async () => {
     console.log('🛑 Stopping local Keeta devnet...');
-    // TODO: Implement docker-compose down logic
-    console.log('✅ Keeta devnet stopped.');
+    try {
+      // Use -v to prune volumes so we get a fresh state next time
+      await runDockerCompose(['down', '-v']);
+      console.log('✅ Keeta devnet stopped and data cleared.');
+    } catch (err) {
+      console.error('❌ Failed to stop Keeta devnet:', err);
+      process.exit(1);
+    }
   });
 
-program
-  .command('fund <address>')
-  .description('Instantly fund a local Keeta address with test tokens')
-  .action(async (address) => {
-    console.log(`💸 Funding address: ${address}...`);
-    // TODO: Connect to local network using SDK and transfer from genesis
-    console.log(`✅ successfully funded ${address} with 100,000,000 tokens!`);
-  });
-
-program.parse(process.argv);
