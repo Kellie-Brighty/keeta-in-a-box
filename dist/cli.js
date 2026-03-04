@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const commander_1 = require("commander");
 const docker_1 = require("./utils/docker");
+const keeta_1 = require("./utils/keeta");
 const program = new commander_1.Command();
 program
     .name('keeta-devnet')
@@ -37,3 +38,11 @@ program
         process.exit(1);
     }
 });
+program
+    .command('fund <address>')
+    .description('Instantly fund a local Keeta address with test tokens')
+    .action(async (address) => {
+    console.log(`💸 Funding address: ${address}...`);
+    await (0, keeta_1.fundAddress)(address);
+});
+program.parse(process.argv);
