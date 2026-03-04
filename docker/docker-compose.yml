@@ -2,10 +2,10 @@ version: "3.8"
 
 services:
   keeta-node:
-    # We use ghcr.io/keetanetwork/node-rs as the probable image location
-    # from our research. We will document how to swap this if the official
-    # registry path is different.
-    image: ghcr.io/keetanetwork/node-rs:latest
+    # We use a generic alpine image temporarily mock the node
+    # Since the official Keeta registry is currently private/closed-source.
+    # Replace this with the official image when available.
+    image: alpine:latest
     container_name: keeta-devnet-node
     ports:
       # Expose standard Keeta RPC/WebSocket ports
@@ -19,7 +19,7 @@ services:
       - KEETA_NETWORK=local
       - KEETA_BOOTSTRAP=false
       - KEETA_VALIDATOR=true
-    command: ["--config", "/etc/keeta/local-node.config.json"]
+    command: ["tail", "-f", "/dev/null"]
 
 volumes:
   keeta_data:
