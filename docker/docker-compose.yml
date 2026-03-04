@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  keeta-node:
+    # We use ghcr.io/keetanetwork/node-rs as the probable image location
+    # from our research. We will document how to swap this if the official
+    # registry path is different.
+    image: ghcr.io/keetanetwork/node-rs:latest
+    container_name: keeta-devnet-node
+    ports:
+      # Expose standard Keeta RPC/WebSocket ports
+      - "8443:8443"
+      - "443:443"
+    volumes:
+      - ./config:/etc/keeta
+      - keeta_data:/var/lib/keeta
+    environment:
+      # Flag definitions for setting the node into single-node/dev mode
+      - KEETA_NETWORK=local
+      - KEETA_BOOTSTRAP=false
+      - KEETA_VALIDATOR=true
+    command: ["--config", "/etc/keeta/local-node.config.json"]
+
+volumes:
+  keeta_data:
