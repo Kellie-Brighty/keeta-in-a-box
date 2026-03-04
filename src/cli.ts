@@ -2,6 +2,7 @@
 
 import { Command } from 'commander';
 import { runDockerCompose } from './utils/docker';
+import { fundAddress } from './utils/keeta';
 
 const program = new Command();
 
@@ -38,4 +39,14 @@ program
       process.exit(1);
     }
   });
+
+program
+  .command('fund <address>')
+  .description('Instantly fund a local Keeta address with test tokens')
+  .action(async (address) => {
+    console.log(`💸 Funding address: ${address}...`);
+    await fundAddress(address);
+  });
+
+program.parse(process.argv);
 
