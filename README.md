@@ -1,8 +1,8 @@
-# 📦 Keeta-in-a-Box
+# Keeta-in-a-Box
 
-A zero-config, one-click local development environment for the **Keeta Network**.
+A local development environment for the Keeta Network.
 
-> ⚡ _Stop wasting time configuring local nodes, syncing chains, and hunting for test tokens. Start building Keeta Apps instantly._
+> _Skip the manual node configuration and testnet faucets. Run a local Keeta node instantly._
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/keetanetwork?style=social)](https://twitter.com/keetanetwork)
 
@@ -10,9 +10,9 @@ A zero-config, one-click local development environment for the **Keeta Network**
 
 ## What is this?
 
-Keeta-in-a-Box solves the biggest developer experience bottleneck in the early Keeta ecosystem: **local testing**.
+Setting up a local testing environment for Keeta is currently too manual.
 
-Instead of dealing with manual node binaries, genesis block configurations, or public testnet faucet wait times, this tool orchestrates a private, standalone Keeta node on your machine via Docker and exposes a CLI to manage it and instantly fund your development wallets.
+Instead of dealing with node binaries, genesis configurations, or waiting on public testnets, this tool orchestrates a private, standalone Keeta node via Docker. It also exposes a CLI to manage the node and fund your development wallets instantly.
 
 ## Requirements
 
@@ -25,10 +25,10 @@ Instead of dealing with manual node binaries, genesis block configurations, or p
 
 ### 1. Install
 
-Clone the repository and install dependencies:
+Clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/your-username/keeta-in-a-box.git
+git clone https://github.com/Kellie-Brighty/keeta-in-a-box.git
 cd keeta-in-a-box
 npm install
 npm run build
@@ -37,17 +37,17 @@ npm link
 
 ### 2. Start the Devnet
 
-Spin up your local Keeta node with a single command:
+Spin up your local Keeta node:
 
 ```bash
 keeta-devnet up
 ```
 
-_(This pulls the official `keetanetwork/node-rs` image and starts it in standalone Validator mode on `localhost:8443`)_
+_(This pulls the `keetanetwork/node-rs` image and starts it in standalone Validator mode on `localhost:8443`)_
 
 ### 3. Fund your Wallet
 
-Need tokens to test your DApp? Use the CLI to instantly transfer 100M test tokens from the devnet Genesis account to your address:
+Need tokens to test your app? Use the CLI to transfer 100M test tokens from the devnet Genesis account to your address:
 
 ```bash
 keeta-devnet fund <your_keeta_address>
@@ -55,7 +55,7 @@ keeta-devnet fund <your_keeta_address>
 
 ### 4. Stop the Devnet
 
-When you're done, safely tear down the environment and clear the ephemeral chain data:
+When you're done testing, you can tear down the environment and clear the chain data:
 
 ```bash
 keeta-devnet down
@@ -82,10 +82,8 @@ const client = new KeetaNet.Client([
 
 ---
 
-## Why I Built This (Building in Public 🚀)
+## Why I Built This
 
-I believe the Keeta Network's 10M TPS DAG architecture is game-changing for real-world assets and high-throughput use cases. But great chains need great Developer Experience (DX). I built `Keeta-in-a-Box` to make onboarding for new devs frictionless.
-
-Let's build the future on Keeta.
+I think Keeta Network's architecture is a strong fit for high-throughput use cases, but developers need better tooling to adopt it. I built `Keeta-in-a-Box` to make onboarding for new devs much smoother.
 
 _(Open to contributions! Submit a PR or open an issue.)_
